@@ -3,7 +3,7 @@ const app = express();
 const port = 8000;
 app.use(express.json())
 const customFs = require("./lib/fs");
-const { verifyUser, signUser } = require("./lib/jwt");
+const { signUser } = require("./lib/jwt");
 const posts = new customFs("../module/posts.json");
 const users = new customFs("../module/users.json");
 
