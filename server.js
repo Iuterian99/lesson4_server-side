@@ -4,9 +4,13 @@ const port = 8000;
 
 const customFs = require("./lib/fs");
 const posts = new customFs("../module/posts.json");
+const users = new customFs("../module/users.json");
 
-app.get("/", (req, res) => {
-  res.send("salom");
+app.post("/users", (req, res) => {
+  // const { name, password } = req.body;
+  const allUsers = JSON.parse(users.read());
+  console.log(allUsers);
+  res.send("users");
 });
 
 app.get("/posts", (req, res) => {
