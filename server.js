@@ -3,14 +3,22 @@ const app = express();
 const port = 8000;
 
 const customFs = require("./lib/fs");
+const { verifyUser, signUser } = require("./lib/jwt");
 const posts = new customFs("../module/posts.json");
 const users = new customFs("../module/users.json");
 
 app.post("/users", (req, res) => {
-  // const { name, password } = req.body;
+  const { userName, password } = req.body;
   const allUsers = JSON.parse(users.read());
-  console.log(allUsers);
-  res.send("users");
+  foundUser = allUsers.find(
+    (e) => e.userName == userName && e.password == password
+  );
+  if (!foundUser) {
+    return res.status(401).send({ message: "unothorized" });
+  }
+  res.status(200).json({
+    token: signUser({ id: foundUser.id, userName: foundUser.userName }),
+  });
 });
 
 app.get("/posts", (req, res) => {
