@@ -4,8 +4,7 @@ const { signUser } = require("../lib/jwt");
 
 
 module.exports =  (req, res) => {
-  const { username, password } = req.body;
-  console.log(username, password);
+  const { username, password } = req.body;  
   const allUsers = JSON.parse(users.read())
   foundUser = allUsers.find(
     (e) => e.name == username && e.password == password
